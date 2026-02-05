@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/davalaxy/repositories/DAVALASHOP/
+    - /bin/cp -R dist/* $DEPLOYPATH

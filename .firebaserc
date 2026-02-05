@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "flutter-ai-playground-76ba0"
+  },
+  "targets": {
+    "flutter-ai-playground-76ba0": {
+      "hosting": {
+        "davalashop": [
+          "davalashop"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
