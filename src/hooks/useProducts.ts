@@ -137,15 +137,29 @@ export const useDeleteProduct = () => {
 
   return useMutation({
     mutationFn: async (id: string) => {
+      // First, delete any cart_items referencing this product
+      await supabase
+        .from("cart_items")
+        .delete()
+        .eq("product_id", id);
+
+      // Then delete the product
       const { error } = await supabase
         .from("products")
         .delete()
         .eq("id", id);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Delete product error:", error);
+        throw new Error(error.message || "Failed to delete product");
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: (error) => {
+      console.error("Delete mutation error:", error);
     },
   });
 };
