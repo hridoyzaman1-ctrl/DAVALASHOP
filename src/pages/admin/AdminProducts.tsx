@@ -36,10 +36,16 @@ const AdminProducts = () => {
     try {
       await deleteProduct.mutateAsync(deleteId);
       toast({ title: "Product deleted successfully" });
-    } catch (error) {
-      toast({ title: "Error deleting product", variant: "destructive" });
+    } catch (error: any) {
+      console.error("Delete failed:", error);
+      toast({
+        title: "Error deleting product",
+        description: error?.message || "Please try again or check database permissions",
+        variant: "destructive"
+      });
+    } finally {
+      setDeleteId(null);
     }
-    setDeleteId(null);
   };
 
   return (
